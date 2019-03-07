@@ -10,7 +10,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "source1",
-					"script": "source(output(\n\t\tVendorID as string,\n\t\ttpep_pickup_datetime as string,\n\t\ttpep_dropoff_datetime as string,\n\t\tpassenger_count as string,\n\t\ttrip_distance as string,\n\t\tRatecodeID as string,\n\t\tstore_and_fwd_flag as string,\n\t\tPULocationID as string,\n\t\tDOLocationID as string,\n\t\tpayment_type as string,\n\t\tfare_amount as string,\n\t\textra as string,\n\t\tmta_tax as string,\n\t\ttip_amount as string,\n\t\ttolls_amount as string,\n\t\timprovement_surcharge as string,\n\t\ttotal_amount as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> source1"
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 500) ~> source1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Aggregate1",
+					"script": "source1 aggregate(groupBy(VendorID = VendorID),\n\ttip_amount = sum(tip_amount)) ~> Aggregate1"
 				}
 			]
 		}
