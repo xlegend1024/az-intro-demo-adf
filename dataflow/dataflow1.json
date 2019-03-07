@@ -9,14 +9,14 @@
 						"referenceName": "nyctaxi_data",
 						"type": "DatasetReference"
 					},
-					"name": "source1",
-					"script": "source(output(\n\t\tVendorID as short,\n\t\ttpep_pickup_datetime as timestamp,\n\t\ttpep_dropoff_datetime as timestamp,\n\t\tpassenger_count as short,\n\t\ttrip_distance as double,\n\t\tRatecodeID as short,\n\t\tstore_and_fwd_flag as boolean,\n\t\tPULocationID as short,\n\t\tDOLocationID as short,\n\t\tpayment_type as short,\n\t\tfare_amount as double,\n\t\textra as double,\n\t\tmta_tax as double,\n\t\ttip_amount as double,\n\t\ttolls_amount as double,\n\t\timprovement_surcharge as double,\n\t\ttotal_amount as double\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 500) ~> source1"
+					"name": "nyctaxi201706yellow",
+					"script": "source(output(\n\t\tVendorID as short,\n\t\ttpep_pickup_datetime as timestamp,\n\t\ttpep_dropoff_datetime as timestamp,\n\t\tpassenger_count as short,\n\t\ttrip_distance as double,\n\t\tRatecodeID as short,\n\t\tstore_and_fwd_flag as boolean,\n\t\tPULocationID as short,\n\t\tDOLocationID as short,\n\t\tpayment_type as short,\n\t\tfare_amount as double,\n\t\textra as double,\n\t\tmta_tax as double,\n\t\ttip_amount as double,\n\t\ttolls_amount as double,\n\t\timprovement_surcharge as double,\n\t\ttotal_amount as double\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 500) ~> nyctaxi201706yellow"
 				}
 			],
 			"transformations": [
 				{
 					"name": "Aggregate1",
-					"script": "source1 aggregate(groupBy(VendorID),\n\ttip_amount = sum(tip_amount)) ~> Aggregate1"
+					"script": "nyctaxi201706yellow aggregate(groupBy(VendorID),\n\ttip_amount = sum(tip_amount)) ~> Aggregate1"
 				}
 			]
 		}
